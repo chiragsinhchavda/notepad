@@ -1,0 +1,24 @@
+<div class='login'>
+	<h1>Login</h1>
+	<div class='loginForm' [formGroup]='loginForm'>
+		<div class='email'>
+			<label for='email'>Email</label>
+			<input id='email' type='email' formControlName='email' placeholder='Enter your email address' />
+			<p class='error' style='color: red;' *ngIf='loginForm?.controls["email"]?.invalid && loginForm?.controls["email"]?.touched'>Email is required</p>
+		</div>
+		<div class='password'>
+			<label for='password'>Password</label>
+			<input id='password' type='passwrod' formControlName='password' placeholder='Enter your password' />
+			<p class='error' style='color: red;' *ngIf='loginForm?.controls["password"]?.invalid && loginForm?.controls["password"]?.touched'>Password is required</p>
+		</div>
+		<div class='forgot-password'>
+			<a routerLink='/forgot-password'>Forgot password</a>
+		</div>
+		<div class='loginBtn'>
+			<button type='button' (click)='login()' [disabled]="loginForm?.invalid">Login</button>
+		</div>
+		<div class='registerBtn'>
+			<a routerLink='/register'>Register</a>
+		</div>
+	</div>
+</div>
