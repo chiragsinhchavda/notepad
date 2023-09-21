@@ -3,25 +3,21 @@
 	<div class="border">
 		<div class="container border">
 			<div class="container-fluid">
-				<div class="d-flex float-right mt-4 mb-4">
-					<button class="btn btn-outline-dark" type="button">+Add</button>
-				</div>
 				<div class="d-flex border p-4">
-					<ul class="list-group border me-2">
+					<ul class="col-4 list-group border me-2">
 						<li class="list-group-item" *ngFor="let notes of notesList" (click)="onClickList(notes)" style="cursor: pointer;">{{notes.title}}</li>
 						<li class="list-group-item" *ngIf="!notesList.length" style="cursor: pointer;">No list added</li>
 					</ul>
-					<div class="notepad border">
-						<div class="notes-form" [formGroup]="notesForm">
+					<div class="col-8">
+						<div class="notes-form form-group" [formGroup]="notesForm">
+							<div class="border">
+								<button type="submit" class="btn btn-success" (click)="this.isEdit.value ? update() : save()">{{this.isEdit.value ? 'Update' : '+Add'}}</button>
+							</div>
 							<div class="mb-3">
 								<input type="text" class="form-control" id="title" formControlName="title" aria-describedby="titleHelp" placeholder="Add a title">
 							</div>
 							<div class="mb-3">
-								<textarea type="text" class="form-control" id="description" formControlName="notes"></textarea>
-							</div>
-							<div class="border">
-								<button type="button" class="btn btn-dark me-1" (click)="cancelSave()">Cancel</button>
-								<button type="submit" class="btn btn-success" [ngClass]="{'disabled': notesForm.invalid}" [disabled]="notesForm.invalid" (click)="this.isEdit.value ? update() : save()">{{this.isEdit.value ? 'Update' : 'Save'}}</button>
+								<textarea type="text" class="form-control" id="editor" formControlName="notes"></textarea>
 							</div>
 						</div>
 					</div>
