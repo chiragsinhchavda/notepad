@@ -13,7 +13,6 @@ export class AuthGuard implements CanActivate {
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 		let credintials: any = localStorage.getItem('userData');
-		console.log('Check auth for credintials in auth guard : ', credintials)
 		if (!credintials) {
 			this.router.navigate(['login'])
 			return false

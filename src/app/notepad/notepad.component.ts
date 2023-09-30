@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Editor, Toolbar } from 'ngx-editor';
 
 @Component({
   selector: 'app-notepad',
@@ -11,6 +12,18 @@ export class NotepadComponent {
 	notesForm:any
 	notesList:any = []
 	isEdit:FormControl = new FormControl(null)
+	editor: Editor | any;
+  	//html = '';
+	toolbar: Toolbar = [
+		['bold', 'italic'],
+		['underline', 'strike'],
+		['code', 'blockquote'],
+		['ordered_list', 'bullet_list'],
+		[{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+		['link', 'image'],
+		['text_color', 'background_color'],
+		['align_left', 'align_center', 'align_right', 'align_justify'],
+	];
 
 	constructor(
 		private formBuilder: FormBuilder
@@ -18,9 +31,13 @@ export class NotepadComponent {
 		this.createform()
 	}
 
+	ngOnInit(){
+		this.editor = new Editor();
+	}
+
 	save(){
 		console.log('this.notesForm.value',this.notesForm.value)
-		if(this.notesForm.value){
+		if(this.notesForm.valid){
 			this.notesList.push(this.notesForm.value)
 			this.notesForm.reset()
 		}
@@ -33,6 +50,12 @@ export class NotepadComponent {
 			this.notesList.splice(index,1,this.notesForm.value)
 			this.isEdit.setValue(null)
 			this.notesForm.reset()
+		}
+	}
+
+	deleteNotes(notes:any, index:any){
+		if(notes){
+			this.notesList.splice(index,1)
 		}
 	}
 
@@ -51,8 +74,12 @@ export class NotepadComponent {
 
 	createform(){
 		this.notesForm = this.formBuilder.group({
-			title: [null, Validators.required],
-			notes: [null, Validators.required]
+			title: [null, [Validators.required]],
+			notes: ['', [Validators.required]]
 		})
+	}
+
+	ngOnDestroy(): void {
+		this.editor.destroy();
 	}
 }

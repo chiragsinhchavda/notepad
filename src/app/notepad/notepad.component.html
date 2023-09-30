@@ -5,19 +5,26 @@
 			<div class="container-fluid">
 				<div class="d-flex border p-4">
 					<ul class="col-4 list-group border me-2">
-						<li class="list-group-item" *ngFor="let notes of notesList" (click)="onClickList(notes)" style="cursor: pointer;">{{notes.title}}</li>
-						<li class="list-group-item" *ngIf="!notesList.length" style="cursor: pointer;">No list added</li>
+						<div style="cursor: pointer;" class="d-flex" *ngFor="let notes of notesList; let i = index" (click)="onClickList(notes)">
+							<li class="list-group-item">{{notes.title}}</li>
+							<button type="button" (click)="deleteNotes(notes, i)">Delete</button>
+						</div>
+						<div *ngIf="!notesList.length" style="cursor: pointer;">
+							<li class="list-group-item">No list added</li>
+						</div>
 					</ul>
 					<div class="col-8">
 						<div class="notes-form form-group" [formGroup]="notesForm">
 							<div class="border">
-								<button type="submit" class="btn btn-success" (click)="this.isEdit.value ? update() : save()">{{this.isEdit.value ? 'Update' : '+Add'}}</button>
+								<button type="button" class="btn btn-success" [disabled]="notesForm.invalid" (click)="isEdit.value ? update() : save()">{{isEdit.value ? 'Update' : '+Add'}}</button>
 							</div>
 							<div class="mb-3">
 								<input type="text" class="form-control" id="title" formControlName="title" aria-describedby="titleHelp" placeholder="Add a title">
-							</div>
+							</div>	
 							<div class="mb-3">
-								<textarea type="text" class="form-control" id="editor" formControlName="notes"></textarea>
+								<ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+								<ngx-editor [editor]="editor" formControlName="notes" [disabled]="false" [placeholder]="'Type here...'" [rows]="10"></ngx-editor>
+								<!--<textarea type="text" class="form-control" id="editor" formControlName="notes"></textarea>-->
 							</div>
 						</div>
 					</div>
