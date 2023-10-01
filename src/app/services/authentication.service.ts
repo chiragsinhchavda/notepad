@@ -8,6 +8,7 @@ import { map } from 'rxjs';
 })
 
 export class AuthenticationService {
+	private baseApiUrl = 'http://localhost:3000'
 
   constructor(private httpService: HttpClient) { }
 
