@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Editor, Toolbar } from 'ngx-editor';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-notepad',
@@ -26,7 +27,8 @@ export class NotepadComponent {
 	];
 
 	constructor(
-		private formBuilder: FormBuilder
+		private formBuilder: FormBuilder,
+		public authenticationService: AuthenticationService
 	){
 		this.createform()
 	}
