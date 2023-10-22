@@ -1,14 +1,12 @@
 <div class='mainContainer'>
-	<div class="header">
-		<h1>Notes</h1>
-	</div>
+	<app-header></app-header>
 	<div class="loginComponent">
 		<div class="image">
 			<img src="../../assets/images/note-art-auth.avif" alt="">
 		</div>
 		<div class="loginDiv">
 			<div class="loginTitle">
-				<h1>Sign in to your Notepad</h1>
+				<h1>Sign in to your Notes</h1>
 			</div>
 			<div class='loginForm' [formGroup]='loginForm'>
 				<div class='login'>
@@ -26,7 +24,7 @@
 						Password is required</p>
 				</div>
 				<div class='loginBtn button'>
-					<button type='button' (click)='login()' [disabled]="loginForm?.invalid">Login</button>
+					<button type='button' (click)='login()'>Login</button>
 				</div>
 				<div class='registerBtn button'>
 					<a routerLink='/register'>Register</a>

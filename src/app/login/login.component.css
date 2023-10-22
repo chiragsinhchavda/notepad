@@ -5,16 +5,6 @@
 	background-color: #ffffff;
 }
 
-.header {
-	height: 70px;
-	display: flex;
-	align-items: center;
-}
-
-.header h1 {
-	font-size: 30px;
-}
-
 .loginComponent {
 	height: 85%;
 	display: flex;

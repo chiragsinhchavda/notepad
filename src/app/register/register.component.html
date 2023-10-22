@@ -1,38 +1,35 @@
 <div class='mainContainer'>
-	<div class="header">
-		<h1>Notes</h1>
-	</div>
+	<app-header></app-header>
 	<div class="registerComponent">
 		<div class="image">
 			<img src="../../assets/images/note-art-auth.avif" alt="">
 		</div>
 		<div class="registerDiv">
 			<div class="registerTitle">
-				<h1>Sign Up to your Notepad</h1>
+				<h1>Sign Up to your Notes</h1>
 			</div>
-				<div class="registerForm" [formGroup]="registerForm">
-					<div class="register">
-						<!--<label for="email">Email</label>-->
-						<input id="email" type="email" formControlName="email" placeholder="Enter your email address" />
-						<p class="error"
-							*ngIf="registerForm?.controls['email']?.invalid && registerForm?.controls['email']?.touched">
-							Email is required</p>
-					</div>
-					<div class="register">
-						<!--<label for="password">Password</label>-->
-						<input id="password" type="passwrod" formControlName="password"
-							placeholder="Enter your password" />
-						<p class="error"
-							*ngIf="registerForm?.controls['password']?.invalid && registerForm?.controls['password']?.touched">
-							Password is required</p>
-					</div>
-					<div class="registerBtn button">
-						<button type="button" (click)="register()" [disabled]="registerForm?.invalid">Register</button>
-					</div>
-					<div class="loginBtn button">
-						<a routerLink="/login">Login</a>
-					</div>
+			<div class="registerForm" [formGroup]="registerForm">
+				<div class="register">
+					<!--<label for="email">Email</label>-->
+					<input id="email" type="email" formControlName="email" placeholder="Enter your email address" />
+					<p class="error"
+						*ngIf="registerForm?.controls['email']?.invalid && registerForm?.controls['email']?.touched">
+						Email is required</p>
 				</div>
+				<div class="register">
+					<!--<label for="password">Password</label>-->
+					<input id="password" type="passwrod" formControlName="password" placeholder="Enter your password" />
+					<p class="error"
+						*ngIf="registerForm?.controls['password']?.invalid && registerForm?.controls['password']?.touched">
+						Password is required</p>
+				</div>
+				<div class="registerBtn button">
+					<button type="button" (click)="register()">Register</button>
+				</div>
+				<div class="loginBtn button">
+					<a routerLink="/login">Login</a>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
