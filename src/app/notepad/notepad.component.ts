@@ -41,10 +41,11 @@ export class NotepadComponent {
 
 	getAllNotes(){
 		try{
-			this.authenticationService.apiCall('get','http://localhost:3000/api/get-all-notes').pipe(finalize(() => {
+			this.authenticationService.apiCall('get','http://127.0.0.1:3000/api/get-all-notes').pipe(finalize(() => {
 				console.log('all notes get confirm....')
 			})).subscribe((res:any) => {
 				if(res){
+					console.log('res : ',res)
 					this.notesList = res
 				}
 			},(err:any) => {
@@ -59,10 +60,11 @@ export class NotepadComponent {
 		console.log('this.notesForm.value',this.notesForm.value)
 		try{
 			if(this.notesForm.valid){
-				this.authenticationService.apiCall('post', 'http://localhost:3000/api/add-note', this.notesForm.value).pipe(finalize(() => {
+				this.authenticationService.apiCall('post', 'http://127.0.0.1:3000/api/add-note', this.notesForm.value).pipe(finalize(() => {
 					console.log('called confirm..')
 				})).subscribe((res:any) => {
 					if(res){
+						console.log('res post : ',res)
 						this.getAllNotes()
 						//this.notesList.push(this.notesForm.value)
 						this.notesForm.reset()
@@ -80,7 +82,7 @@ export class NotepadComponent {
 		try{
 			console.log('this.isEdit.value : ',this.isEdit.value)
 			if(this.isEdit.value){
-				this.authenticationService.apiCall('put',`/api/update-note/${this.isEdit.value._id}`, this.notesForm.value).pipe(finalize(() => {
+				this.authenticationService.apiCall('put',`http://127.0.0.1:3000/api/update-note/${this.isEdit.value._id}`, this.notesForm.value).pipe(finalize(() => {
 					console.log('update confirm...')
 				})).subscribe((res:any) => {
 					console.log('update res : ',res)
@@ -90,19 +92,18 @@ export class NotepadComponent {
 				},(err:any) => {
 					console.log('API ERROR : ',err)
 				})
-				//let index = this.notesList.indexOf(this.isEdit.value)
-				//this.notesList.splice(index,1,this.notesForm.value)
 			}
 		}catch(e:any){
 			console.log('Error : ', e)
 		}
 	}
 
-	deleteNotes(notes:any, index:any){
+	deleteNotes(event:any, notes:any, index:any){
+		event.stopPropagation()
 		try{
 			console.log('note to delete : ',notes)
 			if(notes){
-				this.authenticationService.apiCall('delete',`/api/delete-note/${notes._id}`).pipe(finalize(() => {
+				this.authenticationService.apiCall('delete',`http://127.0.0.1:3000/api/delete-note/${notes._id}`).pipe(finalize(() => {
 					console.log('delete confirm...')
 				})).subscribe((res:any) => {
 					console.log('delete res : ',res)
@@ -124,7 +125,7 @@ export class NotepadComponent {
 	onClickList(notes:any){
 		if(notes){
 			this.isEdit.setValue(notes)
-			this.notesForm.setValue(notes)
+			this.notesForm.patchValue(notes)
 		}
 	}
 

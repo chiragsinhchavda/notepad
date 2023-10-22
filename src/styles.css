@@ -1,1 +1,43 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Josefin+Sans:wght@300&family=Philosopher&display=swap');
+
+*{
+	padding: 0px;
+	margin: 0px
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+button{
+	color: black;
+	font-family: 'Josefin Sans', sans-serif !important;
+}
+
+button:disabled,
+button[disabled]{
+  /*border: 1px solid #cccccc !important;
+  background-color: #cccccc !important;*/
+  cursor: default !important;
+  color: #615e5e !important;
+  opacity: 0.5;
+}
+
+input{
+	color: black !important;
+}
+
+label{
+	color: black !important;
+}
+
+a{
+	text-decoration: none;
+	color: black
+}

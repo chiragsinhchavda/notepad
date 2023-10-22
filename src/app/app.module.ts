@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxEditorModule } from 'ngx-editor';
 import { AuthenticationService } from './services/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { HttpClientModule } from '@angular/common/http';
 		  remove: 'Remove',
 		},
 	  }),
-	HttpClientModule
+	HttpClientModule,
+ BrowserAnimationsModule
   ],
   providers: [AuthenticationService],
   bootstrap: [AppComponent],
