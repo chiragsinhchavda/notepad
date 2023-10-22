@@ -13,7 +13,7 @@ export class NotepadComponent {
 
 	notesForm:any
 	notesList:any = []
-	isEdit:FormControl = new FormControl(null)
+	isEdit:any = new FormControl(null)
 	editor: Editor | any;
   	//html = '';
 	toolbar: Toolbar = [
