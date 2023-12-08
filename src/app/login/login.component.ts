@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
+import { finalize } from 'rxjs';
 
 @Component({
 	selector: 'app-login',
@@ -9,12 +11,12 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 	loginForm: any
-	private loginId: string = 'chiragc.test@gmail.com'
-	private loginIdPass: string = 'Admin@123'
+	errorMessage:any
 
 	constructor(
 		private formBuilder: FormBuilder,
-		private router: Router
+		private router: Router,
+		public authenticationService: AuthenticationService
 	) {
 		this.createForm()
 	}
@@ -22,16 +24,21 @@ export class LoginComponent {
 	login() {
 		console.log('this.loginForm.value : ', this.loginForm.value)
 		try {
-			if (this.loginForm.value) {
-				//code for authenticate user....
-				if (this.loginForm.value.email.trim() === this.loginId.trim() && this.loginForm.value.password === this.loginIdPass) {
-					let credintial = JSON.stringify(this.loginForm.value)
-					console.log('Credintial : ',credintial)
-					localStorage.setItem('userData',credintial)
-					this.router.navigate(['notepad'])
-				} else {
-					alert('Invalid login credintials!!')
-				}
+			if (this.loginForm.valid) {
+				this.authenticationService.apiCall('post', 'http://127.0.0.1:3000/auth/login', this.loginForm.value).pipe(finalize(() => {
+					console.log('Login Api call successfull...')
+				})).subscribe((res: any) => {
+					console.log('res : ', res)
+					if (res && res.data) {
+						let credintial = JSON.stringify(res.data)
+						localStorage.setItem('userData',credintial)
+						this.router.navigate(['notepad'])
+					} else {
+						this.errorMessage = res.message
+					}
+				}, (err: any) => {
+					console.log('API ERROR : ', err)
+				})
 			}
 		} catch (e) {
 			console.log('Error : ', e)
